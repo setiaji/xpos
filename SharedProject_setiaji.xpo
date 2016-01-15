@@ -1,0 +1,368 @@
+﻿Exportfile for AOT version 1.0 or later
+Formatversion: 1
+
+***Element: SPO
+
+; Microsoft Dynamics AX Security Policy: ABU_SalesStock unloaded
+; --------------------------------------------------------------------------------
+VERSION 3
+
+SECURITYPOLICY #ABU_SalesStock
+  PROPERTIES
+    Name                #ABU_SalesStock
+    Label               #Maintain and monitor sales stock
+    PrimaryTable        #AZ_OnHandForSales
+    Query               #abu_SalesStock_Qry
+    ConstrainedTable    #Yes
+    Enabled             #Yes
+    ContextType         #RoleName
+    Origin              #{35D3CF90-3316-4FF0-9E00-E994A9D21FEE}
+  ENDPROPERTIES
+  
+  CONSTRAINEDTABLES #Constrained Tables
+  ENDCONSTRAINEDTABLES
+  
+ENDSECURITYPOLICY
+
+
+***Element: SDT
+
+; Microsoft Dynamics AX DUTY : ABU_SalesStock unloaded
+; --------------------------------------------------------------------------------
+  VERSION 1
+  
+  DUTY #ABU_SalesStock
+    PROPERTIES
+      Name                #ABU_SalesStock
+      Label               #ABU Maintain sales stock
+      Description         #Maintain sales stock
+      Origin              #{0F36B761-D2E5-459D-8CBE-C7AB53204C84}
+    ENDPROPERTIES
+    
+    PRIVILEGES #Privileges
+      PRIVILEGE #ABU_SalesStock
+        PROPERTIES
+          Name                #ABU_SalesStock
+        ENDPROPERTIES
+        
+      ENDPRIVILEGE
+      
+  ENDPRIVILEGES
+  
+ENDDUTY
+
+
+***Element: SPV
+
+; Microsoft Dynamics AX PRIVILEGE : ABU_SalesStock unloaded
+; --------------------------------------------------------------------------------
+  VERSION 1
+  
+  PRIVILEGE #ABU_SalesStock
+    PROPERTIES
+      Name                #ABU_SalesStock
+      Label               #ABU Maintain and monitor sales stock
+      Description         #ABU Maintain and monitor sales stock
+      Origin              #{8F28690F-D6B3-4A0A-943D-5EA697673973}
+    ENDPROPERTIES
+    
+    ENTRYPOINTS #Entry Points
+      ENTRYPOINT #AZ_OnhandStockForSales
+        PROPERTIES
+          Name                #AZ_OnhandStockForSales
+          ObjectType          #MenuItemDisplay
+          ObjectName          #AZ_OnhandStockForSales
+          AccessLevel         #Read
+        ENDPROPERTIES
+        
+      ENDENTRYPOINT
+      
+  ENDENTRYPOINTS
+  
+PERMISSIONSET #Permissions
+  PROPERTIES
+  ENDPROPERTIES
+  
+  TABLES #Tables
+  ENDTABLES
+  
+SERVERMETHODS #Server Methods
+ENDSERVERMETHODS
+
+FORMS #Forms
+ENDFORMS
+
+ENDPERMISSIONSET
+
+ENDPRIVILEGE
+
+
+***Element: QUE
+
+; Microsoft Dynamics AX Query: ABU_SalesStock_Qry unloaded
+; --------------------------------------------------------------------------------
+VERSION 31
+
+QUERY #ABU_SalesStock_Qry
+  PROPERTIES
+    Name                #ABU_SalesStock_Qry
+    Version             #24
+    NextUniqueId        #1001
+    Origin              #{BE3AC4CA-E327-4501-908A-D97DAD432662}
+  ENDPROPERTIES
+  
+  METHODS
+    SOURCE #classDeclaration
+      #public class QueryRun extends ObjectRun
+      #{
+      #}
+    ENDSOURCE
+  ENDMETHODS
+  BLOCKS
+    BLOCK #AZ_OnHandForSales
+      PROPERTIES
+        Name                #AZ_OnHandForSales_1
+        Table               #AZ_OnHandForSales
+        UniqueId            #1000
+        FetchMode           #1:1
+      ENDPROPERTIES
+      
+      FIELDLIST
+        PROPERTIES
+          Dynamic             #No
+        ENDPROPERTIES
+        
+        FIELD #ItemId
+        FIELD #ItemName
+        FIELD #InventSiteId
+        FIELD #InventLocationId
+        FIELD #SalesStock
+      ENDFIELDLIST
+      SORTING
+      ENDSORTING
+      LINES
+        LINE #InventLocationId
+        PROPERTIES
+          Name                #InventLocationId
+          Table               #AZ_OnHandForSales
+          Field               #InventLocationId
+          Value               #="BTR"
+        ENDPROPERTIES
+        
+      ENDLINES
+      BLOCKS
+      ENDBLOCKS
+      GROUPBY
+      ENDGROUPBY
+      HAVING
+      ENDHAVING
+      ORDERBY
+      ENDORDERBY
+    ENDBLOCK
+  ENDBLOCKS
+  DEPENDENTS
+  ENDDEPENDENTS
+  COMPOSITEQUERIES
+  ENDCOMPOSITEQUERIES
+ENDQUERY
+
+
+***Element: VIE
+
+; Microsoft Dynamics AX View : ABU_SalesStock_View unloaded
+; --------------------------------------------------------------------------------
+  TABLEVERSION 1
+  
+  VIEW #ABU_SalesStock_View
+    PROPERTIES
+      Name                #ABU_SalesStock_View
+      SaveDataPerCompany  #Yes
+      Origin              #{3A378C38-D31F-4238-98D2-FEA8C98F2459}
+    ENDPROPERTIES
+    
+    QUERY #Metadata
+      PROPERTIES
+        Name                #Metadata
+        Version             #2
+        NextUniqueId        #1001
+      ENDPROPERTIES
+      
+      BLOCKS
+        BLOCK #AZ_OnHandForSales
+          PROPERTIES
+            Name                #AZ_OnHandForSales_1
+            Table               #AZ_OnHandForSales
+            UniqueId            #1000
+          ENDPROPERTIES
+          
+          FIELDLIST
+            PROPERTIES
+            ENDPROPERTIES
+            
+          ENDFIELDLIST
+          LINES
+          ENDLINES
+          BLOCKS
+          ENDBLOCKS
+          GROUPBY
+          ENDGROUPBY
+          HAVING
+          ENDHAVING
+          ORDERBY
+          ENDORDERBY
+        ENDBLOCK
+      ENDBLOCKS
+    ENDQUERY
+    
+    FIELDS
+      VIEWFIELD #InventLocationId
+        PROPERTIES
+          Name                #InventLocationId
+          Table               #ABU_SalesStock_View
+          ExtendedDataType    #InventLocationId
+          StringSize          #30
+          DataSource          #AZ_OnHandForSales_1
+          DataField           #InventLocationId
+          Origin              #{07004A73-17AB-4E21-B879-CC66FBC36CF6}
+        ENDPROPERTIES
+        
+      ENDVIEWFIELD
+      
+      VIEWFIELD #InventSiteId
+        PROPERTIES
+          Name                #InventSiteId
+          Table               #ABU_SalesStock_View
+          ExtendedDataType    #InventSiteId
+          StringSize          #20
+          DataSource          #AZ_OnHandForSales_1
+          DataField           #InventSiteId
+          Origin              #{1BE4270E-6A76-4EAF-8533-8832C8A83F9D}
+        ENDPROPERTIES
+        
+      ENDVIEWFIELD
+      
+      VIEWFIELD #ItemId
+        PROPERTIES
+          Name                #ItemId
+          Table               #ABU_SalesStock_View
+          ExtendedDataType    #ItemId
+          StringSize          #30
+          DataSource          #AZ_OnHandForSales_1
+          DataField           #ItemId
+          Origin              #{B1527F84-9BA2-426A-8EA1-EE563BB8C6EB}
+        ENDPROPERTIES
+        
+      ENDVIEWFIELD
+      
+      VIEWFIELD #ItemName
+        PROPERTIES
+          Name                #ItemName
+          Table               #ABU_SalesStock_View
+          ExtendedDataType    #ItemName
+          StringSize          #100
+          DataSource          #AZ_OnHandForSales_1
+          DataField           #ItemName
+          Origin              #{2329AEB9-52D2-42DA-B8CA-A37EB8F9730A}
+        ENDPROPERTIES
+        
+      ENDVIEWFIELD
+      
+      VIEWFIELD #SalesStock
+        PROPERTIES
+          Type                #Real
+          Name                #SalesStock
+          Table               #ABU_SalesStock_View
+          StringSize          #(Memo)
+          DataSource          #AZ_OnHandForSales_1
+          DataField           #SalesStock
+          Origin              #{8DDE7A58-CD53-4422-B099-39F584EEAF03}
+        ENDPROPERTIES
+        
+      ENDVIEWFIELD
+      
+    ENDFIELDS
+    GROUPS
+    ENDGROUPS
+    
+    METHODS
+    ENDMETHODS
+  ENDVIEW
+  
+
+***Element: VIE
+
+; Microsoft Dynamics AX View : Salesman_View unloaded
+; --------------------------------------------------------------------------------
+  TABLEVERSION 1
+  
+  VIEW #Salesman_View
+    PROPERTIES
+      Name                #Salesman_View
+      Label               #Salesman for stock view
+      Origin              #{93B61D21-07D0-4C40-A9A4-3E61AABCD7AC}
+    ENDPROPERTIES
+    
+    QUERY #Metadata
+      PROPERTIES
+        Name                #Metadata
+        Version             #6
+        NextUniqueId        #1002
+      ENDPROPERTIES
+      
+      BLOCKS
+        BLOCK #SecurityUserRole
+          PROPERTIES
+            Name                #SecurityUserRole_1
+            Table               #SecurityUserRole
+            UniqueId            #1000
+          ENDPROPERTIES
+          
+          FIELDLIST
+            PROPERTIES
+            ENDPROPERTIES
+            
+          ENDFIELDLIST
+          LINES
+          ENDLINES
+          BLOCKS
+            BLOCK #SecurityRole
+              PROPERTIES
+                Name                #SecurityRole_1
+                Table               #SecurityRole
+                UniqueId            #1001
+              ENDPROPERTIES
+              
+              FIELDLIST
+                PROPERTIES
+                ENDPROPERTIES
+                
+              ENDFIELDLIST
+              LINES
+              ENDLINES
+              BLOCKS
+              ENDBLOCKS
+              ASSOCIATIONS
+              ENDASSOCIATIONS
+            ENDBLOCK
+          ENDBLOCKS
+          GROUPBY
+          ENDGROUPBY
+          HAVING
+          ENDHAVING
+          ORDERBY
+          ENDORDERBY
+        ENDBLOCK
+      ENDBLOCKS
+    ENDQUERY
+    
+    FIELDS
+    ENDFIELDS
+    GROUPS
+    ENDGROUPS
+    
+    METHODS
+    ENDMETHODS
+  ENDVIEW
+  
+
+***Element: END
