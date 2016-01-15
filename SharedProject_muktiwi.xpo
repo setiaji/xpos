@@ -1,0 +1,34 @@
+﻿Exportfile for AOT version 1.0 or later
+Formatversion: 1
+
+***Element: JOB
+
+; Microsoft Dynamics AX Job: Job1 unloaded
+; --------------------------------------------------------------------------------
+  JOBVERSION 1
+  
+  SOURCE #Job1
+    #static void Job1(Args _args)
+    #{/*
+    #    CustInvoiceJour _custInvJour;
+    #
+    #    select _custInvJour
+    #    where _custInvJour.dataAreaId == "ABU";
+    #    */
+    #    Name    name;
+    #    RecId   recid;
+    #    ;
+    #
+    #    recid = HcmWorker::find(DirPersonuser::findUserWorkerReference(curUserId())).RecId;
+    #    //info(recid);
+    #    //error(recid);
+    #
+    #
+    #}
+  ENDSOURCE
+  PROPERTIES
+    Origin              #{B5CCA719-877B-47CC-A1DA-E55F8EFDE5B7}
+  ENDPROPERTIES
+  
+
+***Element: END
