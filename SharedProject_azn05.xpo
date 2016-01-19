@@ -9017,7 +9017,7 @@ FORM #CustTableListPage
           ElementPosition     #1840700268
           HierarchyParent     #mbGeneralActivities
           Text                #New Call
-          NormalImage         #10431
+          NormalImage         #10880
           ImageLocation       #EmbeddedResource
           ShowShortCut        #No
           NeedsRecord         #Yes
@@ -10474,6 +10474,7 @@ FORM #smmActivities
           
           DATAFIELD EndDateTime
             PROPERTIES
+              AllowEdit           #No
             ENDPROPERTIES
             
             METHODS
@@ -10539,6 +10540,29 @@ FORM #smmActivities
                 #
                 #    super();
                 #    activityCheck.setActionValues();
+                #}
+              ENDSOURCE
+              SOURCE #validate
+                #public boolean validate()
+                #{
+                #    boolean ret;
+                #
+                #    int                 _day;
+                #    Date                _currentdate = today();
+                #    utcDateTime         _UtcCurrentPeriod, _UtcStartPeriod, _UtcEndPeriod;
+                #
+                #    ret = super();
+                #
+                #    _day = smmParametersTable::find().ActivityValidDays;
+                #    _UtcCurrentPeriod =  DateTimeUtil::newDateTime(_currentdate,0);
+                #    _UtcStartPeriod   =  DateTimeUtil::addDays(_UtcCurrentPeriod, _day*-1);
+                #
+                #    if(smmActivities.StartDateTime < _UtcStartPeriod)
+                #    {
+                #        return checkFailed("Activity Date too small !!");
+                #    }
+                #
+                #     return ret;
                 #}
               ENDSOURCE
             ENDMETHODS
@@ -10854,6 +10878,10 @@ FORM #smmActivities
         SOURCE #initValue
           #public void initValue()
           #{
+          #
+          #    int                 _day;
+          #    Date                _currentdate = today();
+          #    utcDateTime         _UtcCurrentPeriod, _UtcEndPeriod;
           #    ;
           #    smmActivities.Category = category;
           #
@@ -10876,6 +10904,14 @@ FORM #smmActivities
           #    {
           #        smmActivities.ReminderActive = NoYes::Yes;
           #    }
+          #
+          #    _day = smmParametersTable::find().ActivityValidDays;
+          #    _UtcCurrentPeriod =  DateTimeUtil::newDateTime(_currentdate,0);
+          #    _UtcEndPeriod     =  DateTimeUtil::addDays(_UtcCurrentPeriod, _day);
+          #
+          #
+          #    smmActivities.EndDateTime = _UtcEndPeriod;
+          #
           #}
         ENDSOURCE
         SOURCE #linkActive
@@ -12554,6 +12590,7 @@ FORM #smmActivities
       CONTROL GROUP
         PROPERTIES
           Name                #Type
+          Visible             #No
           ElementPosition     #1757032074
           HierarchyParent     #Identification
           FrameType           #None
@@ -13626,7 +13663,7 @@ FORM #smmActivities
           ElementPosition     #1789569705
           HierarchyParent     #btngrpActivityNew
           Text                #Call
-          NormalImage         #10431
+          NormalImage         #10880
           ImageLocation       #EmbeddedResource
           ShowShortCut        #No
           Big                 #Yes
@@ -15256,7 +15293,7 @@ FORM #smmActivitiesListPage
           HierarchyParent     #NewGroup
           Text                #Call
           ButtonDisplay       #Text & Image above
-          NormalImage         #10431
+          NormalImage         #10880
           ImageLocation       #EmbeddedResource
           ShowShortCut        #No
           MultiSelect         #No
@@ -24995,6 +25032,9 @@ ENDFORM
         #public boolean validateWrite(boolean isProjServer = false, boolean validateWorkerOnly = false)
         #{
         #    boolean             ret = true;
+        #    int                 _day;
+        #    Date                _currentdate = today();
+        #    utcDateTime         _UtcCurrentPeriod, _UtcEndPeriod;
         #
         #    if (!validateWorkerOnly)
         #    {
@@ -25031,10 +25071,22 @@ ENDFORM
         #            ret = checkFailed("@SYS105059");
         #        }
         #
+        #
+        #        _day = smmParametersTable::find().ActivityValidDays;
+        #        _UtcCurrentPeriod =  DateTimeUtil::newDateTime(_currentdate,0);
+        #        _UtcEndPeriod     =  DateTimeUtil::addDays(_UtcCurrentPeriod, _day);
+        #
+        #        if(this.EndDateTime > _UtcEndPeriod)
+        #        {
+        #            return checkFailed("Activity expired !!");
+        #        }
+        #
         #        if (smmActivityParentLinkTable::existsParentLink(this.ActivityNumber, smmActivityParentType::ServiceOrderLine))
         #        {
         #            ret = ret && this.validateWriteServiceOrder();
         #        }
+        #
+        #
         #    }
         #
         #    if (this.DoneByWorker)
