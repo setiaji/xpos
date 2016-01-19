@@ -134,7 +134,6 @@ ENDROLE
       DUTY #ABU_SalesStock
         PROPERTIES
           Name                #ABU_SalesStock
-          Enabled             #No
         ENDPROPERTIES
         
       ENDDUTY
