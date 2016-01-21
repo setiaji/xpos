@@ -1000,6 +1000,14 @@ ENDPRIVILEGE
         ENDPROPERTIES
         
       ENDMENUITEM
+      MENUITEM
+        PROPERTIES
+          Name                #CRM Activity Monitoring
+          MenuItemName        #ABU_ActivityDetailPage
+          IsDisplayedInContentArea    #Yes
+        ENDPROPERTIES
+        
+      ENDMENUITEM
       MENU #@SYS333919
         PROPERTIES
           Name                #OrderStatus
@@ -1189,6 +1197,15 @@ ENDPRIVILEGE
             Name                #Sales Commission
             MenuItemType        #Output
             MenuItemName        #AZ_SalesCommision
+          ENDPROPERTIES
+          
+        ENDMENUITEM
+        MENUITEM
+          PROPERTIES
+            Name                #CRM Activity Monitoring
+            MenuItemType        #Output
+            MenuItemName        #AZCRMActivity
+            IsDisplayedInContentArea    #Yes
           ENDPROPERTIES
           
         ENDMENUITEM
@@ -12107,7 +12124,7 @@ FORM #smmActivities
       CONTROL GROUP
         PROPERTIES
           Name                #GroupColumn2
-          ElementPosition     #1610612733
+          ElementPosition     #1610612734
           HierarchyParent     #General
           FrameType           #None
         ENDPROPERTIES
@@ -12372,9 +12389,9 @@ FORM #smmActivities
         PROPERTIES
           Name                #Responsible
           AutoDeclaration     #Yes
-          ElementPosition     #920350134
+          ElementPosition     #843654289
           HierarchyParent     #GroupColumn2
-          Caption             #@SYS81040
+          Caption             #Salesman
           DataSource          #smmActivities
           DataGroup           #Responsible
         ENDPROPERTIES
@@ -19359,6 +19376,7 @@ ENDFORM
         INT64
         PROPERTIES
           Name                #ResponsibleWorker
+          Label               #Salesman
           Table               #smmActivities
           Origin              #{E54E0FAF-2E87-45AE-B1A8-261C3A792166}
           LegacyId            #32
@@ -19369,10 +19387,22 @@ ENDFORM
         STRING
         PROPERTIES
           Name                #Salesman
+          Visible             #No
           Table               #smmActivities
           Origin              #{56463FEE-2E56-4415-B5BB-606FC1E79C81}
           ExtendedDataType    #ABU_Salesman
           StringSize          #30
+        ENDPROPERTIES
+        
+      FIELD #SalesmanbyWorker
+        INT64
+        PROPERTIES
+          Name                #SalesmanbyWorker
+          Label               #Salesman
+          Visible             #No
+          Table               #smmActivities
+          Origin              #{5445C543-A7A6-46F2-BEB4-741ABB61C5EB}
+          ExtendedDataType    #smmActivityWorker
         ENDPROPERTIES
         
       FIELD #Sensitivity
@@ -20488,6 +20518,7 @@ ENDFORM
           #ResponsibilityId
           #ResponsibleWorker
           #Salesman
+          #SalesmanbyWorker
         ENDGROUPFIELDS
       ENDGROUP
       GROUP #Role
@@ -22022,6 +22053,8 @@ ENDFORM
         #            }
         #            break;
         #    }
+        #
+        #
         #
         #    // Insert link to parent
         #    this.insertParentLink(parentType, parentRefRecId, primary, _table);
