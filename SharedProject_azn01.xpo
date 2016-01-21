@@ -972,6 +972,14 @@ ENDROLE
       ENDMENUITEM
       MENUITEM
         PROPERTIES
+          Name                #Work process
+          MenuItemType        #Action
+          MenuItemName        #WHSWorkExecute
+        ENDPROPERTIES
+        
+      ENDMENUITEM
+      MENUITEM
+        PROPERTIES
           Name                #Warehouse status change
           MenuItemName        #WHSWarehouseStatusChange
         ENDPROPERTIES
